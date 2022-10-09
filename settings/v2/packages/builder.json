@@ -1,0 +1,13 @@
+{
+  "splash-setting": {
+    "displayWatermark": false,
+    "totalTime": 1000,
+    "url": "D:\\项目\\INT游戏Demo开发\\logo.png",
+    "clearColor": {
+      "x": 1,
+      "y": 1,
+      "z": 1,
+      "w": 1
+    }
+  }
+}
