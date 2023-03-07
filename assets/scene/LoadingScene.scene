@@ -161,7 +161,7 @@
     "_priority": 1073741825,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 315,
+    "_orthoHeight": 811.875,
     "_near": 0,
     "_far": 1000,
     "_color": {
@@ -441,7 +441,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -376,
-      "y": 271,
+      "y": 137,
       "z": 0
     },
     "_lrot": {
@@ -546,7 +546,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 271,
+      "y": 195,
       "z": 0
     },
     "_lrot": {
@@ -2593,7 +2593,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 166.76,
+      "width": 153.62,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -2622,7 +2622,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "The next round s about to start:",
+    "_string": "Waiting for a player to join ！",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 12,
@@ -2649,7 +2649,7 @@
       "__id__": 29
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 75

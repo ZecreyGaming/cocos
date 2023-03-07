@@ -257,6 +257,7 @@ export default class Map extends cc.EventTarget {
 
     /** 更新领地 */
     public updateTerritory(index: number, teamId: number) {
+        console.log("=== updateTerritory ===")
         let c = this._teamColors[teamId];
         let t = this._territorys[index];
         if (c && t) {
@@ -267,6 +268,7 @@ export default class Map extends cc.EventTarget {
 
     private _liveItems: Array<string> = [];
     public updateItems(items: Array<ItemData>) {
+        // console.log("=== updateItems ===")
         this._liveItems.splice(0, this._liveItems.length);
         for (let i = 0; i < items.length; i++) {
             let itemData = items[i];

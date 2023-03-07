@@ -1,13 +1,14 @@
 import * as cc from 'cc';
 import Map from './game/Map';
 import Network from './net/Network';
-import { SettlementPanel } from './ui/SettlementPanel';
-import { TerritoryMessage, TerritoryPackage, TerritoryProtocol } from './protocol/TerritoryProtocol';
-import { NetErrorPanel } from './ui/NetErrorPanel';
-import { FrameData } from './game/Data';
+import {SettlementPanel} from './ui/SettlementPanel';
+import {TerritoryMessage, TerritoryPackage, TerritoryProtocol} from './protocol/TerritoryProtocol';
+import {NetErrorPanel} from './ui/NetErrorPanel';
+import {FrameData} from './game/Data';
 import DataFactory from './game/DataFactory';
-import { DEBUG } from 'cc/env';
-const { ccclass, property } = cc._decorator;
+import {DEBUG} from 'cc/env';
+
+const {ccclass, property} = cc._decorator;
 
 let Base64 = window['Base64'];
 var wgame = window['game'] || {game_ws_url: null};
@@ -16,14 +17,14 @@ window['game'] = wgame;
 @ccclass('LoadingScene')
 export class LoadingScene extends cc.Component {
     @property(cc.Camera) uiCamera: cc.Camera = null;
-    @property(cc.Node) mapLayer: cc.Node = null; 
-    @property(cc.Node) playerLayer: cc.Node = null; 
-    @property(cc.Node) iconLayer: cc.Node = null; 
-    @property(cc.Node) teamNodeTemp: cc.Node = null; 
-    @property(SettlementPanel) settlementPanel: SettlementPanel = null; 
-    @property(NetErrorPanel) netErrorPanel: NetErrorPanel = null; 
-    @property(cc.Node) logoNode: cc.Node = null; 
-    @property(cc.Node) teamLogo: Array<cc.Node> = [] 
+    @property(cc.Node) mapLayer: cc.Node = null;
+    @property(cc.Node) playerLayer: cc.Node = null;
+    @property(cc.Node) iconLayer: cc.Node = null;
+    @property(cc.Node) teamNodeTemp: cc.Node = null;
+    @property(SettlementPanel) settlementPanel: SettlementPanel = null;
+    @property(NetErrorPanel) netErrorPanel: NetErrorPanel = null;
+    @property(cc.Node) logoNode: cc.Node = null;
+    @property(cc.Node) teamLogo: Array<cc.Node> = []
 
     private _map: Map = null;
     private _net: Network = null;
@@ -33,17 +34,24 @@ export class LoadingScene extends cc.Component {
     private _frameDt = 0;
     private _frameIndex = -1;
     private _frameDatas: Array<FrameData> = [];
-    
+
     private _netConnected: boolean = false;
     private _maploaded: boolean = false;
     private _gameOver: boolean = false;
     private _netError: boolean = false;
     private _joinRoomFailTimes: number = 0;
     private _remoteFrame: number = 0;
-    private _logLevel: number = 1;
+    private _logLevel: number = 5;
 
     private _mapData = {rows: 30, cols: 40, gridWid: 20, gridHei: 20, players: null, items: null, teamLogoPos: {}};
-    private _defaultTeamLogoPos = {0: {x: 0, y: 0}, 1: {x: -376, y: -271}, 2: {x: 376, y: -271}, 3: {x: -376, y: 271}, 4: {x: 10, y: 291}, 5: {x: 376, y: 271}};
+    private _defaultTeamLogoPos = {
+        0: {x: 0, y: 0},
+        1: {x: -376, y: -271},
+        2: {x: 376, y: -271},
+        3: {x: -376, y: 271},
+        4: {x: 10, y: 291},
+        5: {x: 376, y: 271}
+    };
 
     private onNetDisconnect() {
         if (this._logLevel >= 1) console.log("Net.onNetDisconnect");
@@ -83,18 +91,22 @@ export class LoadingScene extends cc.Component {
                 this._gameOver = true;
                 if (this._logLevel >= 3) console.log("onGameStop.body = ", body);
                 let data = {winner: body.winner, cd: body.next_count_down};
-                this.settlementPanel.showUI(data, () => {});
+                this.settlementPanel.showUI(data);
             } else {
                 if (this._logLevel >= 1) console.error("The game is over!");
             }
 
+        } else if (route == "onGameStart") {
+            this._gameOver = false;
+            console.log("onGameStart.body = ", body);
+            this.settlementPanel.closeUI();
         } else if (route == "onPlayerJoin") {
             if (body.player_id) {
                 this._map.createPlayer(-1, body.player_id + '', true);
             } else {
                 if (this._logLevel >= 1) console.log("onPlayerJoin.body.player_id is null", body);
             }
-            
+
         } else if (route == "onUpdate") {
             if (Base64) {
                 let frameData = this._factory.createFrameData();
@@ -128,15 +140,18 @@ export class LoadingScene extends cc.Component {
     }
 
     private onRequestMsg(route, body) {
-        if (DEBUG) { if (this._logLevel >= 3) console.log("onRequestMsg: route = ", route, ", route = ", body) };
+        if (DEBUG) {
+            if (this._logLevel >= 3) console.log("onRequestMsg: route = ", route, ", route = ", body)
+        }
     }
 
     private checkGameReady() {
+        console.log("=== checkGameReady ===")
         if (this._maploaded && this._netConnected) {
             if (this._gameOver) {
-                this._gameOver = false;
                 this._factory.recoveryFrameData(this._frameDatas);
-                this.settlementPanel.closeUI();
+
+                // this.settlementPanel.showUI({winner: body.winner});
             }
             this._frameIndex = -1;
             this.iconLayer.active = false;
@@ -166,7 +181,7 @@ export class LoadingScene extends cc.Component {
 
     private onMapComplete() {
         this._maploaded = true;
-        this.checkGameReady();    
+        this.checkGameReady();
     }
 
     private connectNetwork() {
@@ -178,10 +193,10 @@ export class LoadingScene extends cc.Component {
         let wsurl = wgame.game_ws_url
         let findex = window.location.href.indexOf('?');
         if (findex >= 0) {
-            let url = window.location.href.substring(findex+1);
+            let url = window.location.href.substring(findex + 1);
             if (url && url.length > 0) wsurl = url;
         }
-        wsurl = wsurl || "ws://3.1.100.155:3250";
+        wsurl = wsurl || "ws://127.0.0.1:3250";
         this._net.init({
             url: wsurl,
             package: new TerritoryPackage(),
@@ -197,16 +212,25 @@ export class LoadingScene extends cc.Component {
         this._net.addLogRouteFilter("onUpdate");
     }
 
+
     private onGameJoinRes(data: any) {
-        if (this._logLevel >= 3) console.log("request: data = ", data);
-        if (data.code == 0) {
+        console.log("request: data = ", data);
+        if (data.code == 0) {//进入游戏
             this._joinRoomFailTimes = 0;
             this.netErrorPanel.closeUI();
+            this.gameInfo(data);
         } else {
             this._joinRoomFailTimes += 1;
             setTimeout(() => {
                 this.joinRoom()
             }, this._joinRoomFailTimes * 2000);
+        }
+    }
+
+    private gameInfo(gameData: any) {
+        if (gameData.game_status === 0 || gameData.game_status === 2) {  //0 1 2 : 没开始，进行中，已结束
+            this.settlementPanel.showUI({winner: gameData.winner})
+            this._gameOver = true
         }
     }
 
@@ -242,14 +266,14 @@ export class LoadingScene extends cc.Component {
                             this._map.updateTerritory(i, fd.mapData[i]);
                         }
                         for (let i = 0; i < fd.players.length; i++) {
-                            let p =  fd.players[i];
+                            let p = fd.players[i];
                             this._map.updatePlayer(p.id, p.x, p.y, true);
                         }
                         this._map.updateItems(fd.items);
                         this._factory.addFrameDataToPreRePool(fd);
-                        if (DEBUG) {
-                            if (this._logLevel >= 5) console.log("local frame = " + this._frameIndex + ", remote frame = " + this._remoteFrame, ", diff = ", (this._remoteFrame - this._frameIndex));
-                        }
+                        // if (DEBUG) {
+                        //     if (this._logLevel >= 5) console.log("local frame = " + this._frameIndex + ", remote frame = " + this._remoteFrame, ", diff = ", (this._remoteFrame - this._frameIndex));
+                        // }
                         this._frameIndex += 1;
                     } else {
                         this._frameDatas.sort(this.frameSort.bind(this));
