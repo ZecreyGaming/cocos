@@ -127,10 +127,10 @@ export class LoadingScene extends cc.Component {
                 }
                 this._remoteFrame = frameData.frame;
                 this._frameDatas.push(frameData);
-                if (DEBUG) {
-                    if (this._logLevel >= 5) console.log("network frame: " + frameData.frame, ", bytes.length = ", offset + "/" + bytes.length);
-                    if (this._logLevel >= 5) console.log("frameData: ", JSON.stringify(frameData));
-                }
+
+                console.log("network frame: " + frameData.frame, ", bytes.length = ", offset + "/" + bytes.length);
+                console.log("frameData: ", JSON.stringify(frameData));
+
             } else {
                 if (this._logLevel >= 1) console.error('Base64 not found!');
             }
@@ -258,13 +258,17 @@ export class LoadingScene extends cc.Component {
             this._factory.exePreDelQueue();
             this._frameTime = 0;
             if (this._frameDatas.length > 0) {
+                console.log("=== update data  1 ===")
                 let fd = this._frameDatas[0];
                 if (fd != null) {
+                    // console.log("=== update data  2 ===frame:", this._frameDatas, "   _frameIndex:", this._frameIndex)
                     if (fd.frame === this._frameIndex) {
                         fd = this._frameDatas.shift();
+                        // console.log("=== update data  3 ===frame:", fd, "   _frameIndex:", this._frameIndex)
                         for (let i = 0; i < fd.mapData.length; i++) {
                             this._map.updateTerritory(i, fd.mapData[i]);
                         }
+                        console.log("=== fd.players ===frame:", fd.players)
                         for (let i = 0; i < fd.players.length; i++) {
                             let p = fd.players[i];
                             this._map.updatePlayer(p.id, p.x, p.y, true);
@@ -274,9 +278,16 @@ export class LoadingScene extends cc.Component {
                         // if (DEBUG) {
                         //     if (this._logLevel >= 5) console.log("local frame = " + this._frameIndex + ", remote frame = " + this._remoteFrame, ", diff = ", (this._remoteFrame - this._frameIndex));
                         // }
-                        this._frameIndex += 1;
+                        // console.log("local frame = " + this._frameIndex + ", remote frame = " + this._remoteFrame, ", diff = ", (this._remoteFrame - this._frameIndex));
+                        let fd2 = this._frameDatas[0];
+                        if (fd2 != null) {
+                            this._frameIndex = fd2.frame;
+                        }
+                        // console.log("=== update data  4 ===frame:", this._frameDatas, "   _frameIndex:", this._frameIndex)
                     } else {
                         this._frameDatas.sort(this.frameSort.bind(this));
+                        let fd = this._frameDatas[0];
+                        this._frameIndex = fd.frame
                     }
                 }
             }

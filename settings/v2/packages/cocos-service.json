@@ -1,13 +1,17 @@
 {
   "game": {
-    "name": "UNKNOW GAME",
-    "app_id": "UNKNOW",
+    "app_id": "681997323",
+    "name": "cocos",
     "c_id": "0"
   },
   "appConfigMaps": [
     {
       "app_id": "UNKNOW",
       "config_id": "9177b1"
+    },
+    {
+      "app_id": "681997323",
+      "config_id": "374167"
     }
   ],
   "configs": [
@@ -17,6 +21,22 @@
       "config_name": "Default",
       "config_remarks": "",
       "services": []
+    },
+    {
+      "app_id": "681997323",
+      "config_id": "374167",
+      "config_name": "Default",
+      "config_remarks": "",
+      "services": [
+        {
+          "service_id": "235",
+          "enable": false,
+          "param": {
+            "app_id": "681997323",
+            "store_id": "H5"
+          }
+        }
+      ]
     }
   ]
 }

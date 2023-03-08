@@ -12,6 +12,7 @@ export class SettlementPanel extends cc.Component {
 
 
     public showUI(data: any) {
+        console.log("=== showUI === ",data)
         this.node.active = true;
         for (let i = 1; i < this.teamIcons.length; i++) {
             if (this.teamIcons[i] == null || this.teamTitles[i] == null) continue;
