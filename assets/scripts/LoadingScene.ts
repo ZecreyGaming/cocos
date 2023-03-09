@@ -98,7 +98,7 @@ export class LoadingScene extends cc.Component {
 
         } else if (route == "onGameStart") {
             this._gameOver = false;
-            console.log("onGameStart.body = ", body);
+            // console.log("onGameStart.body = ", body);
             this.settlementPanel.closeUI();
         } else if (route == "onPlayerJoin") {
             if (body.player_id) {
@@ -128,8 +128,8 @@ export class LoadingScene extends cc.Component {
                 this._remoteFrame = frameData.frame;
                 this._frameDatas.push(frameData);
 
-                console.log("network frame: " + frameData.frame, ", bytes.length = ", offset + "/" + bytes.length);
-                console.log("frameData: ", JSON.stringify(frameData));
+                // console.log("network frame: " + frameData.frame, ", bytes.length = ", offset + "/" + bytes.length);
+                // console.log("frameData: ", JSON.stringify(frameData));
 
             } else {
                 if (this._logLevel >= 1) console.error('Base64 not found!');
@@ -146,7 +146,7 @@ export class LoadingScene extends cc.Component {
     }
 
     private checkGameReady() {
-        console.log("=== checkGameReady ===")
+        // console.log("=== checkGameReady ===")
         if (this._maploaded && this._netConnected) {
             if (this._gameOver) {
                 this._factory.recoveryFrameData(this._frameDatas);
@@ -214,7 +214,7 @@ export class LoadingScene extends cc.Component {
 
 
     private onGameJoinRes(data: any) {
-        console.log("request: data = ", data);
+        // console.log("request: data = ", data);
         if (data.code == 0) {//进入游戏
             this._joinRoomFailTimes = 0;
             this.netErrorPanel.closeUI();
@@ -258,7 +258,7 @@ export class LoadingScene extends cc.Component {
             this._factory.exePreDelQueue();
             this._frameTime = 0;
             if (this._frameDatas.length > 0) {
-                console.log("=== update data  1 ===")
+                // console.log("=== update data  1 ===")
                 let fd = this._frameDatas[0];
                 if (fd != null) {
                     // console.log("=== update data  2 ===frame:", this._frameDatas, "   _frameIndex:", this._frameIndex)
@@ -268,7 +268,7 @@ export class LoadingScene extends cc.Component {
                         for (let i = 0; i < fd.mapData.length; i++) {
                             this._map.updateTerritory(i, fd.mapData[i]);
                         }
-                        console.log("=== fd.players ===frame:", fd.players)
+                        // console.log("=== fd.players ===frame:", fd.players)
                         for (let i = 0; i < fd.players.length; i++) {
                             let p = fd.players[i];
                             this._map.updatePlayer(p.id, p.x, p.y, true);

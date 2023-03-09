@@ -17,7 +17,7 @@ export class Territory extends cc.Component {
     }
 
     private onTouchEnd(evt: cc.EventTouch) {
-        console.log("grid: " + this.gridX + "x" + this.gridY + ", index = " + this.index, evt.getLocation());
+        // console.log("grid: " + this.gridX + "x" + this.gridY + ", index = " + this.index, evt.getLocation());
         // if (this._sp.color.toRGBValue() != cc.Color.RED.toRGBValue()) {
         //     this.color = cc.Color.RED;
         // } else {
@@ -25,7 +25,7 @@ export class Territory extends cc.Component {
         // }
         let gridPos = {x: 0, y: 0};
         this.map.mapToGrid(this.node.position, gridPos);
-        console.log("toTrid: " + gridPos.x + "x" + gridPos.y);
+        // console.log("toTrid: " + gridPos.x + "x" + gridPos.y);
     }
 
     public set color(v: cc.Color) {

@@ -253,7 +253,7 @@ export default class Map extends cc.EventTarget {
         if (player) {
             player.setPosition(this._mapOffsetX + _x, this._mapOffsetY - _y, now);
         }
-        console.log("=== updatePlayer ===",player)
+        // console.log("=== updatePlayer ===",player)
     }
 
     /** 更新领地 */
@@ -264,13 +264,13 @@ export default class Map extends cc.EventTarget {
         if (c && t) {
             t.teamId = teamId;
             t.color = c;
-            console.log("=== updateTerritory ===",t)
+            // console.log("=== updateTerritory ===",t)
         }
     }
 
     private _liveItems: Array<string> = [];
     public updateItems(items: Array<ItemData>) {
-        console.log("=== updateItems ===",items)
+        // console.log("=== updateItems ===",items)
         this._liveItems.splice(0, this._liveItems.length);
         for (let i = 0; i < items.length; i++) {
             let itemData = items[i];
