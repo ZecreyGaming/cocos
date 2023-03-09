@@ -154,7 +154,7 @@ export class LoadingScene extends cc.Component {
                 // this.settlementPanel.showUI({winner: body.winner});
             }
             this._frameIndex = -1;
-            this.iconLayer.active = false;
+            this.iconLayer.active = true;
             this._map.init(this._mapData.rows, this._mapData.cols, this._mapData.gridWid, this._mapData.gridHei);
             this._map.initItemAssets(this._mapData.items);
             this.updateIconPos();
