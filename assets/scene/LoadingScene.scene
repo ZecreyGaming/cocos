@@ -161,7 +161,7 @@
     "_priority": 1073741825,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 682.078853046595,
+    "_orthoHeight": 704.8148148148148,
     "_near": 0,
     "_far": 1000,
     "_color": {
@@ -1188,8 +1188,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 840,
-      "height": 630
+      "width": 880,
+      "height": 680
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2593,7 +2593,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 153.62,
+      "width": 144.96,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -2622,7 +2622,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Waiting for a player to join ！",
+    "_string": "Waiting for a player to join !",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 12,
@@ -2757,8 +2757,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 840,
-      "height": 630
+      "width": 880,
+      "height": 680
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
